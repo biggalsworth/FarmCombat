@@ -27,7 +27,10 @@ public class barrelLook : MonoBehaviour
             transform.rotation = Quaternion.LookRotation(direction);
             if (Input.GetMouseButtonDown(0) && (player.transform.rotation.y > cam.transform.rotation.eulerAngles.y + 10 || player.transform.rotation.y < cam.transform.rotation.eulerAngles.y - 10))
             {
-                player.transform.rotation = Quaternion.Euler(0, cam.transform.rotation.eulerAngles.y, 0);
+                float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+                //float angle = Mathf.SmoothDampAngle(transform.localEulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+                float angle = Mathf.SmoothDampAngle(transform.localEulerAngles.y, player.transform.eulerAngles.y, ref turnSmoothVelocity, turnSmoothTime);
+                transform.rotation = Quaternion.Euler(0f, angle, 0f);
             }
         }
         
