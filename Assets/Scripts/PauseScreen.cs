@@ -12,6 +12,8 @@ public class PauseScreen : MonoBehaviour
     public GameObject store1;
     public GameObject store2;
     public GameObject helpScreen;
+
+    public GameObject[] UIToHide;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,8 +28,8 @@ public class PauseScreen : MonoBehaviour
             {
                 GameManager.instance.cursorLock = false;
                 Time.timeScale = 0f;
-                pauseScreen.SetActive(true);
                 playerUI.SetActive(false);
+                pauseScreen.SetActive(true);
                 paused = true;
             }
             else if(helpScreen.activeSelf == true)
@@ -40,7 +42,11 @@ public class PauseScreen : MonoBehaviour
                 GameManager.instance.cursorLock = true;
                 Time.timeScale = 1f;
                 pauseScreen.SetActive(false);
-                playerUI.SetActive(true);
+                for (int i = 0; i < UIToHide.Length; i++)
+                {
+                    UIToHide[i].SetActive(true);
+                }
+                //playerUI.SetActive(true);
                 paused = false;
 
             }
